@@ -8,7 +8,7 @@ public class Main {
     static final byte PERCENT = 100;
     static final byte MONTHS_IN_YEAR = 12;
 
-    public static double calculatBalance(int principle, float rate, byte years,
+    public static double calculateBalance(int principle, float rate, byte years,
         short numberOfPaymentsMade) {
         float monthlyRate = rate / PERCENT / MONTHS_IN_YEAR;
         float numberOfPayments = years * MONTHS_IN_YEAR;
@@ -17,7 +17,7 @@ public class Main {
             numberOfPaymentsMade)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
     }
 
-    public static double calculatMortgage(int principle, double rate, int years) {
+    public static double calculateMortgage(int principle, double rate, int years) {
         double monthlyRate = rate / PERCENT / MONTHS_IN_YEAR;
         double pow = Math.pow((1 + monthlyRate), years * MONTHS_IN_YEAR);
 
@@ -50,7 +50,7 @@ public class Main {
     }
 
     private static void printPaymentMortgage(int principal, float rate, byte years) {
-        double mortgage = calculatMortgage(principal, rate, years);
+        double mortgage = calculateMortgage(principal, rate, years);
         String mortgageStr = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("Mortgage  " + "\n" + "-----------------");
         System.out.println("Monthly Payments" + mortgageStr + "\n");
@@ -59,7 +59,7 @@ public class Main {
     private static void printPaymentSchedule(int principal, float rate, byte years) {
         System.out.println("PAYMENT SCHEDULE" + "\n" + "-----------------");
         for (short month = 1; month < years * MONTHS_IN_YEAR; month++) {
-            double balance = calculatBalance(principal, rate, years, month);
+            double balance = calculateBalance(principal, rate, years, month);
             String formatBalance = NumberFormat.getCurrencyInstance().format(balance);
             System.out.println(formatBalance);
         }
