@@ -13,19 +13,15 @@ public class Main {
         float monthlyRate = rate / PERCENT / MONTHS_IN_YEAR;
         float numberOfPayments = years * MONTHS_IN_YEAR;
 
-        double balance =
-            principle * (Math.pow(1 + monthlyRate, numberOfPayments) - Math.pow(1 + monthlyRate,
-                numberOfPaymentsMade)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-
-        return balance;
+        return principle * (Math.pow(1 + monthlyRate, numberOfPayments) - Math.pow(1 + monthlyRate,
+            numberOfPaymentsMade)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
     }
 
     public static double calculatMortgage(int principle, double rate, int years) {
         double monthlyRate = rate / PERCENT / MONTHS_IN_YEAR;
         double pow = Math.pow((1 + monthlyRate), years * MONTHS_IN_YEAR);
-        double mortgage = principle * ((monthlyRate * pow) / (pow - 1));
 
-        return mortgage;
+        return principle * ((monthlyRate * pow) / (pow - 1));
     }
 
     public static double readNumber(String inputText, double min, double max) {
@@ -43,16 +39,24 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int principal = 0;
+        int principal;
         principal = (int) readNumber("Principle ($1K~1M) : ", 1000, 1000000);
-        float rate = 0;
+        float rate;
         rate = (float) readNumber("Rate : ", 1, 30);
-        byte years = 0;
+        byte years;
         years = (byte) readNumber("Period(Years) : ", 1, 30);
+        printPaymentMortgage(principal, rate, years);
+        printPaymentSchedule(principal, rate, years);
+    }
+
+    private static void printPaymentMortgage(int principal, float rate, byte years) {
         double mortgage = calculatMortgage(principal, rate, years);
         String mortgageStr = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("Mortgage  " + "\n" + "-----------------");
         System.out.println("Monthly Payments" + mortgageStr + "\n");
+    }
+
+    private static void printPaymentSchedule(int principal, float rate, byte years) {
         System.out.println("PAYMENT SCHEDULE" + "\n" + "-----------------");
         for (short month = 1; month < years * MONTHS_IN_YEAR; month++) {
             double balance = calculatBalance(principal, rate, years, month);
