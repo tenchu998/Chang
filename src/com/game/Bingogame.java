@@ -12,17 +12,11 @@ public class Bingogame {
         this.max = max;
     }
 
-    private int getMin() {
-        return min;
-    }
 
     private void setMin(int min) {
         this.min = min;
     }
 
-    private int getMax() {
-        return max;
-    }
 
     private void setMax(int max) {
         this.max = max;
